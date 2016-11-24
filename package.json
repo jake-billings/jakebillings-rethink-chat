@@ -1,0 +1,32 @@
+{
+  "name": "jakebillings-rethink-chat",
+  "version": "1.0.0",
+  "description": "A simple chat based on rethink-db",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^2.1.4",
+    "express": "^4.14.0",
+    "rethinkdb": "^2.3.3",
+    "socket.io": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.51",
+    "@types/socket.io": "^1.4.27"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jake-billings/jakebillings-rethink-chat.git"
+  },
+  "keywords": [
+    "jake-billings"
+  ],
+  "author": "Jake Billings",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jake-billings/jakebillings-rethink-chat/issues"
+  },
+  "homepage": "https://github.com/jake-billings/jakebillings-rethink-chat#readme"
+}
