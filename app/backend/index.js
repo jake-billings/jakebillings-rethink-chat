@@ -1,6 +1,6 @@
 "use strict";
 var r = require('rethinkdb');
-var SocketIO_frontend_1 = require("./Data/SocketIO.frontend");
+var SocketIO_frontend_1 = require("./Frontend/SocketIO.frontend");
 var Chat_room_1 = require("./Chat/Chat.room");
 function bootstrap(io) {
     r.connect({ host: 'localhost', port: 28015 }, function (err, conn) {

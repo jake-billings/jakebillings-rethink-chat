@@ -1,6 +1,6 @@
 import r = require('rethinkdb');
-import {Frontend} from "./Data/Frontend.interface";
-import {SocketIOFrontend} from "./Data/SocketIO.frontend";
+import {Frontend} from "./Frontend/Frontend.interface";
+import {SocketIOFrontend} from "./Frontend/SocketIO.frontend";
 import {ChatRoom} from "./Chat/Chat.room";
 
 export function bootstrap(io: SocketIO.Server) {

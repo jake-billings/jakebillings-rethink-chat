@@ -1,4 +1,4 @@
-import {Frontend} from "../Data/Frontend.interface";
+import {Frontend} from "../Frontend/Frontend.interface";
 import r = require('rethinkdb');
 import {Connection} from "rethinkdb";
 
