@@ -13,7 +13,7 @@ app.get('*', function (req, res) {
 //Setup realtime backend
 var io = require('socket.io')(server);
 var backend = require('./backend/index');
-backend(io);
+backend.bootstrap(io);
 
 //Launch the server
 server.listen(config.port);

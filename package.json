@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@types/node": "^6.0.51",
+    "@types/rethinkdb": "^2.3.0",
     "@types/socket.io": "^1.4.27"
   },
   "scripts": {
