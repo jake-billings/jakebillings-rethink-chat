@@ -1,20 +1,20 @@
+"use strict";
 //Import config
-var config = require('./config');
-
+const config_1 = require("./config");
 //Serve frontend using express
-var express = require('express');
-var app = express();
-var server = require('http').Server(app);
-app.use(express.static(config.frontendDirectory));
+let express = require('express');
+let app = express();
+let server = require('http').Server(app);
+app.use(express.static(config_1.config.frontendDirectory));
 app.get('*', function (req, res) {
     res.redirect('/');
 });
-
 //Setup realtime backend
-var io = require('socket.io')(server);
-var backend = require('./backend/index');
-backend.bootstrap(io);
-
+const socketIo = require('socket.io');
+let io = socketIo(server);
+const index_1 = require("./backend/index");
+index_1.bootstrap(io);
 //Launch the server
-server.listen(config.port);
-console.info(config.name + ' Running on Port ' + config.port);
+server.listen(config_1.config.port);
+console.info(config_1.config.name + ' Running on Port ' + config_1.config.port);
+//# sourceMappingURL=index.js.map
