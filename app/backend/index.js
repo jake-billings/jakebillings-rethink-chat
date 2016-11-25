@@ -10,9 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const r = require('rethinkdb');
 const SocketIO_frontend_1 = require("./Frontend/SocketIO.frontend");
 const Chat_room_1 = require("./Chat/Chat.room");
+const RethinkDbConnection_1 = require("./Database/RethinkDB/RethinkDbConnection");
 function bootstrap(io) {
     return __awaiter(this, void 0, void 0, function* () {
-        let conn = yield r.connect({ host: 'localhost', port: 28015 });
+        let conn = new RethinkDbConnection_1.RethinkDbConnection(yield r.connect({ host: 'localhost', port: 28015 }));
         let frontend = new SocketIO_frontend_1.SocketIOFrontend(io.of('/Chat'));
         let chatRoom = new Chat_room_1.ChatRoom(conn, frontend);
     });

@@ -1,4 +1,5 @@
 import {Frontend} from "./Frontend.interface";
+import {DatabaseEvent} from "../Database/DatabaseEvent";
 
 class EventListener {
     constructor(name: string, callback: Function) {
@@ -26,8 +27,8 @@ export class SocketIOFrontend implements Frontend {
         });
     }
 
-    emit(event,data) {
-        return this.namespace.emit(event,data);
+    emit(event: DatabaseEvent) {
+        return this.namespace.emit(event.name,event.data);
     }
 
     //Socket.IO Namespace Event Listeners

@@ -1,73 +1,42 @@
 import {Frontend} from "../Frontend/Frontend.interface";
 import r = require('rethinkdb');
-import {Connection} from "rethinkdb";
+import {DatabaseConnection} from "../Database/DatabaseConnection.interface";
+
+import {RethinkDbTable} from "../Database/RethinkDB/RethinkDbTable";
+import {DatabaseTable} from "../Database/DatabaseTable.interface";
+import {DatabaseEvent} from "../Database/DatabaseEvent";
 
 export class ChatRoom {
     readonly frontend: Frontend;
+    readonly table: DatabaseTable;
 
-    //todo convert to actual type
-    constructor(conn: any, frontend: Frontend) {
+    constructor(conn: DatabaseConnection, frontend: Frontend) {
         this.frontend = frontend;
+        this.table = new RethinkDbTable('chats');
 
-        var chats = r.table('chats');
 
-        frontend.onConnect(function (socket) {
-            console.log('socket connected');
-
-            chats.run(conn, function (err, cursor) {
-                if (err) throw err;
-                cursor.toArray(function (err, result) {
-                    if (err) throw err;
-
-                    console.log(result);
-                    socket.emit('initial', result);
-                });
-            });
+        frontend.onConnect(async (socket) => {
+            frontend.emit(new DatabaseEvent('value', await conn.query(this.table)));
         });
 
-        frontend.onCreate(function (chat) {
-            chats.insert(chat).run(conn, function (err, result) {
-                if (err) {
-                    console.error(err);
-                }
-            });
+        frontend.onCreate((a) => {
+            conn.create(this.table, a);
         });
 
-        frontend.onUpdate(function (chat) {
-            chats.filter(r.row('id').eq(chat.id)).update(chat).run(conn, function (err, result) {
-                if (err) throw err;
-                console.log(JSON.stringify(result, null, 2));
-            });
+        frontend.onUpdate((a) => {
+            conn.update(this.table, a);
         });
 
-        frontend.onDelete(function (chat) {
-            chats.filter(r.row('id').eq(chat.id)).delete().run(conn, function (err, result) {
-                if (err) throw err;
-                console.log(JSON.stringify(result, null, 2));
-            });
+        frontend.onDelete((a) => {
+            conn.delete(this.table, a);
         });
 
-        chats.changes().run(conn, function (err, cursor) {
+        conn.onChange(this.table, (err, event) => {
             if (err) {
-                console.error(err);
+                return console.error(err);
             }
 
-            cursor.each(function (err, row) {
-                console.error(err);
-
-                console.log('change', row);
-
-
-                if (row.new_val) {
-                    if (row.old_val) {
-                        frontend.emit('update', row.new_val);
-                    } else {
-                        frontend.emit('create', row.new_val);
-                    }
-                } else {
-                    frontend.emit('delete', row.old_val);
-                }
-            });
+            frontend.emit(event);
         });
     }
 }

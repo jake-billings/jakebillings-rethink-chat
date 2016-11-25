@@ -1,5 +1,7 @@
+import {DatabaseEvent} from "../Database/DatabaseEvent";
+
 export interface EmitFunction {
-    (event: string, data: any);
+    (event: DatabaseEvent);
 }
 export interface ListenFunction {
     (callback: Function);

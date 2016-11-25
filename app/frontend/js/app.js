@@ -1,6 +1,6 @@
 var socket = io.connect('/Chat');
 var chats = [];
-socket.on('initial', function (data) {
+socket.on('value', function (data) {
     chats=data;
     updateState();
 });
