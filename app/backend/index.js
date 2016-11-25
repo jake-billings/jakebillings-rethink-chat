@@ -11,11 +11,13 @@ const r = require('rethinkdb');
 const SocketIO_frontend_1 = require("./Frontend/SocketIO.frontend");
 const Chat_room_1 = require("./Chat/Chat.room");
 const RethinkDbConnection_1 = require("./Database/RethinkDB/RethinkDbConnection");
+const RethinkDbTable_1 = require("./Database/RethinkDB/RethinkDbTable");
+const User_room_1 = require("./User/User.room");
 function bootstrap(io) {
     return __awaiter(this, void 0, void 0, function* () {
         let conn = new RethinkDbConnection_1.RethinkDbConnection(yield r.connect({ host: 'localhost', port: 28015 }));
-        let frontend = new SocketIO_frontend_1.SocketIOFrontend(io.of('/Chat'));
-        let chatRoom = new Chat_room_1.ChatRoom(conn, frontend);
+        let chatRoom = new Chat_room_1.ChatRoom(conn, new SocketIO_frontend_1.SocketIOFrontend(io.of('/Chat')), new RethinkDbTable_1.RethinkDbTable('Chat'));
+        let userRoom = new User_room_1.UserRoom(conn, new SocketIO_frontend_1.SocketIOFrontend(io.of('/User')), new RethinkDbTable_1.RethinkDbTable('User'));
     });
 }
 exports.bootstrap = bootstrap;
