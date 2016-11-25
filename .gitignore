@@ -44,4 +44,4 @@ app/initializeRethink.js
 app/initializeRethink.js.map
 app/backend/**/*.js.map
 
-/app/backend/bower_components/*
+app/frontend/bower_components/*
