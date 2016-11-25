@@ -1,4 +1,4 @@
-import {DatabaseTable} from "./DatabaseTable.interface";
+import {DatabaseTable} from "./DatabaseTable";
 
 export interface DatabaseConnection {
     query: (table: DatabaseTable) => Promise<Array<any>>;

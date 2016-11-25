@@ -1,8 +1,8 @@
-import {Frontend} from "../Frontend/Frontend.interface";
-import {DatabaseConnection} from "../Database/DatabaseConnection.interface";
+import {Frontend} from "../Frontend/Frontend";
+import {DatabaseConnection} from "../Database/DatabaseConnection";
 
 import {Room} from "../Room/Room";
-import {DatabaseTable} from "../Database/DatabaseTable.interface";
+import {DatabaseTable} from "../Database/DatabaseTable";
 
 export class ChatRoom extends Room {
 
